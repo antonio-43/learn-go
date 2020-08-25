@@ -8,6 +8,9 @@ import (
 func HandlerHello(w http.ResponseWriter, r *http.Request) {
 
 	// handle in route /
+	/*
+	*
+	 */
 
 	if r.URL.Path != "/" {
 		http.Error(w, "404 NOT FOUND TROLLEIIIIIIIIII! HEHE BOY", http.StatusNotFound)

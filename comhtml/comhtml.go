@@ -2,25 +2,37 @@ package comhtml
 
 import (
 	"html/template"
-	"log"
 	"net/http"
 )
 
-func HandlerComHTML(w http.ResponseWriter, r *http.Request) {
+/*
+func HandlerComload(w http.ResponseWriter, r *http.Request) {
 
-	temp, err := template.ParseFiles("templates/index.html")
+	// random comment /
+
+
+	// cjrhviuwbviuh
+
+
 	if r.URL.Path != "/comhtml" {
-		http.Error(w, "Error", http.StatusNotFound)
+		fmt.Fprintf(w, "Path diferente")
 		return
 	}
 
 	if r.Method != "GET" {
-		http.Error(w, "ERROR METHOD", http.StatusNotFound)
+		fmt.Fprintf(w, "erro de metodo")
 		return
 	}
 
-	if err != nil {
-		log.Fatal(err)
-	}
-	temp.Execute(w, nil)
+	p := "./html"
+
+	http.FileServer(http.Dir(p))
+
+}
+*/
+
+func ServeTemplate(w http.ResponseWriter, r *http.Request) {
+	templates := template.Must(template.ParseGlob("templates/*.html"))
+
+	templates.ExecuteTemplate(w, "jj.html", nil)
 }
