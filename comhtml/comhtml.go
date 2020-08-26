@@ -1,18 +1,17 @@
 package comhtml
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
+	"path"
 )
 
-/*
 func HandlerComload(w http.ResponseWriter, r *http.Request) {
 
 	// random comment /
 
-
 	// cjrhviuwbviuh
-
 
 	if r.URL.Path != "/comhtml" {
 		fmt.Fprintf(w, "Path diferente")
@@ -24,15 +23,16 @@ func HandlerComload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := "./html"
+	fp := path.Join("templates", "index.html")
+	tmpl, err := template.ParseFiles(fp)
 
-	http.FileServer(http.Dir(p))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
-}
-*/
+	if err := tmpl.Execute(w, ""); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 
-func ServeTemplate(w http.ResponseWriter, r *http.Request) {
-	templates := template.Must(template.ParseGlob("templates/*.html"))
-
-	templates.ExecuteTemplate(w, "jj.html", nil)
 }
