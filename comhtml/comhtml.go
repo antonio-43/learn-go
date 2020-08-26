@@ -1,18 +1,17 @@
 package comhtml
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
+	"path"
 )
 
-/*
 func HandlerComload(w http.ResponseWriter, r *http.Request) {
 
 	// random comment /
 
-
 	// cjrhviuwbviuh
-
 
 	if r.URL.Path != "/comhtml" {
 		fmt.Fprintf(w, "Path diferente")
@@ -24,15 +23,21 @@ func HandlerComload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := "./html"
+	fp := path.Join("templates", "index.html")
+	tmpl, err := template.ParseFiles(fp)
 
-	http.FileServer(http.Dir(p))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
-}
-*/
-
-func ServeTemplate(w http.ResponseWriter, r *http.Request) {
-	templates := template.Must(template.ParseGlob("templates/*.html"))
-
-	templates.ExecuteTemplate(w, "jj.html", nil)
+	if err := tmpl.Execute(w, ""); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	/*
+		steps:
+		1- definir o caminho do arquivo
+		2- usar a funcao ParseFiles(file_path) para parcelar o arquivo
+		3- verificar os erros e usar a funcao Execute(w, "")
+	*/
 }
